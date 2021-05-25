@@ -6,42 +6,31 @@ import { Injectable } from '@angular/core';
 
 export class CalendarService {
   currYear: number;
-  currMonthIndex: number;
+  currMonth: number;
  
-
-  constructor() {
-    let date = new Date();
-    this.currYear = date.getFullYear(); // 2021
-    this.currMonthIndex = date.getMonth(); // 4
-    //console.log(this.currMonthIndex);
-    
-  }
-
   getCurrMonth(){
-    return this.getMonth(this.currMonthIndex, this.currYear); // 4 2021
+    let date = new Date();
+    this.currYear = date.getFullYear();
+    this.currMonth = date.getMonth(); 
+    return this.getMonth(this.currMonth, this.currYear);
   }
 
  getMonth(monthIndex: number, year: number){
     let days = [];
-    let firstday = this.createDay(1, monthIndex, year);
-    // console.log(firstday);
-    
+    let firstday = this.getDays(1, monthIndex, year);
     for (let i = 1; i < firstday.weekDayNumber; i++) {
-      days.push({
+      days.push({ 
         weekDayNumber: i,
         monthIndex: monthIndex,
         year: year,
       });
-
     }
     days.push(firstday);
 
-    let countDays = new Date(year, monthIndex + 1, 0).getDate();
+    let countDays = new Date(year, monthIndex+1, 0).getDate();
     for (let i = 2; i <= countDays; i++) {
-      days.push(this.createDay(i, monthIndex, year));
+      days.push(this.getDays(i, monthIndex, year));
     }
-    //console.log("days", days);
-    
     return days;
   }
 
@@ -71,7 +60,6 @@ export class CalendarService {
         return "November";
       case 11:
         return "December";
-
       default:
         return "";
     }
@@ -93,22 +81,18 @@ export class CalendarService {
         return "Fri"; 
       case 6:
         return "Sat"; 
-
       default:
         return "";
     }
   }
 
-  createDay(dayNumber: number, monthIndex: number, year: number) {
+  getDays(dayNumber: number, monthIndex: number, year: number) {
     let day = new Day();
     day.monthIndex = monthIndex;
-    // console.log(day.monthIndex); // 4
     day.month = this.getMonthName(monthIndex);
-    // console.log(day.month); // May
     day.number = dayNumber;
-    //console.log(day.number); // 1 - 31  
-    day.year = this.currYear; // 2021
-    day.weekDayNumber = new Date(year, monthIndex, dayNumber).getDay(); // 2021 4 1
+    day.year = this.currYear; 
+    day.weekDayNumber = new Date(year, monthIndex, dayNumber).getDay(); 
     //console.log(day.weekDayNumber); // 0 - 6
     day.weekDay = this.getWeekDay(day.weekDayNumber);
 
