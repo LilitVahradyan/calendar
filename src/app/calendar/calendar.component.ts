@@ -6,7 +6,7 @@ import { CalendarService } from '../calendar.service';
   templateUrl: './calendar.component.html',
   styleUrls: ['./calendar.component.css']
 })
-export class CalendarComponent implements OnInit {
+export class CalendarComponent implements OnInit{
   weeksDays = ["Mon", "Tue", "Wen", "Thu", "Fri", "Sat",  "Sun"];
   month = [];
   monthNumber: number;
@@ -23,7 +23,7 @@ export class CalendarComponent implements OnInit {
     this.monthName = this.calendarSrv.getMonthName(this.monthNumber);
     
   }
-
+ 
   onNextMonth() {
     this.monthNumber++;
     console.log(this.monthNumber)
@@ -42,9 +42,10 @@ export class CalendarComponent implements OnInit {
   onPrevMonth(){
     this.monthNumber--;
     //console.log(this.monthNumber);
-    if (this.monthNumber === 1) {
-      this.monthNumber = 11;
+    if (this.monthNumber < 1) {
+      this.monthNumber = 12;
       this.year--;
+      //this.monthNumber--;
       //console.log(this.monthNumber)
     }
 

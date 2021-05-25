@@ -36,7 +36,7 @@ export class CalendarService {
     }
     days.push(firstday);
 
-    let countDays = new Date(year, monthIndex, 0).getDate();
+    let countDays = new Date(year, monthIndex + 1, 0).getDate();
     for (let i = 2; i <= countDays; i++) {
       days.push(this.createDay(i, monthIndex, year));
     }
@@ -47,29 +47,29 @@ export class CalendarService {
 
   getMonthName(monthIndex: number)  {
     switch (monthIndex) {
-      case 1:
+      case 0:
         return "January";      
-      case 2:
+      case 1:
         return "February";
-      case 3:
+      case 2:
         return "March";
-      case 4:
+      case 3:
         return "April";
-      case 5:
+      case 4:
         return "May";
-      case 6:
+      case 5:
         return "June";
-      case 7:
+      case 6:
         return "July";
-      case 8:
+      case 7:
         return "August";
-      case 9:
+      case 8:
         return "September";
-      case 10:
+      case 9:
         return "October";
-      case 11:
+      case 10:
         return "November";
-      case 12:
+      case 11:
         return "December";
 
       default:
@@ -79,19 +79,19 @@ export class CalendarService {
 
   getWeekDay(weekInedx: number) {
     switch (weekInedx) {
-      case 1:
+      case 0:
         return "Sun"; 
-      case 2:
+      case 1:
         return "Mon"; 
-      case 3:
+      case 2:
         return "Tue"; 
-      case 4:
+      case 3:
         return "Wed"; 
-      case 5:
+      case 4:
         return "Thu"; 
-      case 6:
+      case 5:
         return "Fri"; 
-      case 7:
+      case 6:
         return "Sat"; 
 
       default:
