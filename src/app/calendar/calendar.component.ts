@@ -11,18 +11,19 @@ export class CalendarComponent implements OnInit{
   month = [];
   monthNumber: number;
   year: number;
-  monthName = '';
-  
+  monthName: number;
+  selectedMonth = new Date();
+
   constructor(
     public calendarSrv: CalendarService
   ) {}
 
   ngOnInit(): void {
-   this.setMonth(this.calendarSrv.getCurrMonth());
-    this.monthName = this.calendarSrv.getMonthName(this.monthNumber);
+    this.createMonth(this.calendarSrv.getCurrMonth());
+    this.monthName = this.selectedMonth.setMonth(this.monthNumber)
 
   }
-  setMonth(days: Array<{}>) {
+  createMonth(days: Array<{}>) {
     this.month = days;
     this.monthNumber = this.month[0].monthIndex;
     this.year = this.month[0].year;
@@ -32,26 +33,28 @@ export class CalendarComponent implements OnInit{
 
   onNextMonth() {
     this.monthNumber++;
-   
+  
     if (this.monthNumber === 12) {
       this.monthNumber = 0;
       this.year++;
     }
 
-    this.setMonth(this.calendarSrv.getMonth(this.monthNumber, this.year));
-    this.monthName = this.calendarSrv.getMonthName(this.monthNumber)
+    this.createMonth(this.calendarSrv.getMonth(this.monthNumber, this.year));
+    this.monthName = this.selectedMonth.setMonth(this.monthNumber)
   }
 
   onPrevMonth(){
     this.monthNumber--;
-
+  
     if (this.monthNumber < 0) {
       this.monthNumber = 11;
-      this.year--;
+     this.year--
+    
     }
 
-    this.setMonth(this.calendarSrv.getMonth(this.monthNumber, this.year));
-    this.monthName = this.calendarSrv.getMonthName(this.monthNumber)
+    this.createMonth(this.calendarSrv.getMonth(this.monthNumber, this.year));  
+    this.monthName = this.selectedMonth.setMonth(this.monthNumber)
+ 
   }
 
   getToday(){
@@ -59,5 +62,7 @@ export class CalendarComponent implements OnInit{
     return date.getDate();
   }
 }
+
+
 
 

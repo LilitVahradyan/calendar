@@ -7,7 +7,7 @@
                 </button>
             </div>
             <div class="col-sm-4 d-flex justify-content-center align-items-center">
-                <span class="month"> {{ monthName }} {{ year }} </span>
+                <span class="month"> {{monthName | date: "MMMM"}} {{ year }} </span>
             </div>
             <div class="col-sm-4 text-center">
                 <button mat-fab color="primary" (click)="onNextMonth()">
@@ -24,7 +24,7 @@
             <div class="mat-elevation-z4 p-1 day" *ngFor='let day of month' 
                 matRipple  appDayClicked
                 [ngClass] = "{ 'today' : day.number === getToday(), 
-                                'weekend' : day.weekDay === 'Sun' || day.weekDay === 'Sat' }">
+                                'weekend' : day.weekDayNumber === 6 || day.weekDayNumber === 0 }">
                 <span>
                     {{ day.number }}
                 </span>
